@@ -4,7 +4,7 @@
 
 let text = "Hello world  welcome to the universe.";
 
-console.log(text.includes("wor")); 
+console.log(text.includes("word")); 
 
 //The startsWith() method returns true if a string begins with a specified value, otherwise false:
 //The endsWith() method returns true if a string ends with a specified value, otherwise false:
@@ -34,7 +34,7 @@ for (let x of f){
 const numbers = [4, 9, 16, 25, 29];
 let first = numbers.find(myFunction);
 
-function myFunction(value, index, array) {2
+function myFunction(value, index, array) {
 
 
 

@@ -7,5 +7,5 @@ const person = {
   }
   //person.display();
 
-  let per1=
+ 
   setTimeout(person.display, 3000);
