@@ -7,6 +7,7 @@ btn1.addEventListener("click",()=>{
 let  btn2 = document.getElementById("enter-btn");
 let input=document.getElementById("userInput")
 console.log(input);
+dialouge
 btn2.addEventListener("click",()=>{
     const text=input.value.trim();
     console.log(text);
