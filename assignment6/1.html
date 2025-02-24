@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag & Drop List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 300px;
+        }
+        li {
+            padding: 10px;
+            margin: 5px 0;
+            background: lightblue;
+            cursor: grab;
+            border: 1px solid #0077cc;
+        }
+        li.dragging {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <h3>Drag & Drop to Rearrange List</h3>
+    <ul id="sortable-list">
+        <li draggable="true">Item 1</li>
+        <li draggable="true">Item 2</li>
+        <li draggable="true">Item 3</li>
+        <li draggable="true">Item 4</li>
+        <li draggable="true">Item 5</li>
+    </ul>
+
+    <script>
+        const list = document.getElementById("sortable-list");
+
+        let draggedItem = null;
+
+        list.addEventListener("dragstart", (e) => {
+            draggedItem = e.target;
+            e.target.classList.add("dragging");
+        });
+
+        list.addEventListener("dragend", (e) => {
+            e.target.classList.remove("dragging");
+            draggedItem = null;
+        });
+
+        list.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            const draggingOver = e.target;
+            if (draggingOver.tagName === "LI" && draggingOver !== draggedItem) {
+                const rect = draggingOver.getBoundingClientRect();
+                const next = (e.clientY - rect.top) > rect.height / 2;
+                list.insertBefore(draggedItem, next ? draggingOver.nextSibling : draggingOver);
+            }
+        });
+    </script>
+
+</body>
+</html>

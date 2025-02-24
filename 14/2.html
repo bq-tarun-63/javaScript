@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Form on Top</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* Main button to open form */
+        .open-button {
+            padding: 12px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+        .open-button:hover {
+            background-color: darkblue;
+        }
+
+        /* Modal (Popup) background */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            
+            z-index: 1;
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 320px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            /* position: relative; */
+            animation: fadeIn 0.3s ease-in-out;
+            z-index: 100;
+        }
+
+        /* Close button */
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Input fields */
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Fade-in animation */
+        /* @keyframes fadeIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        } */
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to My Webpage</h1>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vehicula sem nec tellus sagittis, 
+        non placerat urna luctus. Vivamus et lorem ut lectus fringilla accumsan. Duis nec metus lorem. 
+        Donec nec nisi id libero tincidunt convallis. Quisque facilisis odio sit amet ultricies gravida. 
+        Nulla facilisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; 
+        Sed at dolor magna.
+    </p>
+    <p>
+        (More dummy text to make the page longer...)
+    </p>
+
+    <!-- Open Form Button -->
+    <button class="open-button" onclick="openForm()">Open Form</button>
+
+    <!-- Modal Popup Form -->
+    <div class="modal" id="formModal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeForm()">×</span>
+            <h2>Sign Up</h2>
+            <form id="popupForm">
+                <label for="username">name</label>
+                <input type="text" id="username" name="one" placeholder="Enter Username" required>
+                <input type="email" id="email" placeholder="Enter Email" required>
+                <input type="password" id="password" placeholder="Enter Password" required>
+                <button type="submit">Submit</button>
+            </form>
+            
+        </div>
+    </div>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi, quae! Adipisci minima, distinctio laboriosam debitis ratione atque culpa corrupti reprehenderit.
+
+    </p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex accusamus quas voluptatum iure optio similique. Totam natus illo iusto culpa!</p>
+    <script>
+        function openForm() {
+            document.getElementById("formModal").style.display = "flex";
+        }
+
+        function closeForm() {
+            document.getElementById("formModal").style.display = "none";
+        }
+
+        document.getElementById("popupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Form submitted!");
+            closeForm();
+        });
+    </script>
+
+</body>
+</html>

@@ -4,27 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TO-DO LIST</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="1.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1>✅ To-Do List</h1>
+    <center>
+        <h1>TO-DO LIST</h1>
 
-        <!-- Task Input Form -->
-        <form id="taskForm">
-            <input id="input" type="text" placeholder="Write your task..." required>
-            <button type="submit">Add</button>
-        </form>
+        <button id="dark-mode-toggle">🌙 Dark Mode</button>
 
-        <!-- Search Box -->
-        <div class="input-area">
-            <input type="text" id="search" placeholder="Search task...">
+        <br><br>
+        <input type="text" id="Search" placeholder="Search Here">
+        <button id="find">Find</button>
+        <button id="sort">Sort</button>
+        <button id="add">Add</button>
+
+        <div id="form-box" class="one">
+            <div class="form-container">
+                <h2>Add New Task</h2>
+                <form id="form">
+                    <input id="task" name="task" type="text" placeholder="Enter your Task" required>
+                    <input type="text" placeholder="Description" name="description" required>
+                    <input type="date" required name="date">
+                    <button type="submit" class="submit-btn">Add Task</button>
+                </form>
+                <button class="close-btn">&times;</button>
+            </div>
         </div>
 
         <ul id="list"></ul>
-    </div>
+    </center>
 
-    <script src="script.js"></script>
+    <script id="one" src="1.js"></script>
 </body>
 </html>

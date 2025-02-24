@@ -10,13 +10,30 @@
 
     <center>
         <h1>TO-Do-LIST</h1>
-    <input id="input" type="text" placeholder="Write Your Task" >
-    <button id="btn1">add</button>
+     <!-- <input id="input" type="text" placeholder="Write Your Task" > -->
+    
   <br>
+   
     <input type="text" id="Search" placeholder="Search Here">
     <button id="find">Find</button>
+    <button id="sort">Sort</button>
+        <button id="add">add</button>
+        <div id="form-box" class="one">
+            <div class="form-container">
+                <h2>Add New Task</h2>
+                <form id="form">
+                    <input id="task" name="task" type="text" placeholder="Enter your Task" required>
+                    <input type="text" placeholder="Description" name="description" required>
+                    <input type="date" placeholder="Enter Date" required name="date">
+                    <button type="submit" class="submit-btn">Add Task</button>
+                </form>
+                <button class="close-btn">&times;</button>
+            </div>
+        </div>
+        
     <br>
     <ul ID="list"></ul>
+
     <script id="one" src="1.js"></script>
     </center>
 </body>
