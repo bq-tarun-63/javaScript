@@ -6,16 +6,6 @@ body {
     padding: 0;
 }
 
-.container {
-    width: 40%;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-top: 50px;
-}
-
 h1 {
     color: #333;
 }
@@ -81,71 +71,30 @@ li:hover {
 .delete:hover {
     background: darkred;
 }
-/* Hide modal by default */
-
-
-/* M/* Hide modal by default */
-
-
+.one{
+    display: none;
+}
 /* Fullscreen overlay */
 #form-box {
+  /* display: none; */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-    display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Ensures it's on top */
+    z-index: 1000; 
 }
-.one{
-    display: none;
-}
+
 /* Modal box */
-#form-container {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    width: 350px;
-    position: relative;
-    animation: fadeIn 0.3s ease-in-out;
-    z-index: 1001; /* Ensures it's above the overlay */
+.strikethrough {
+    text-decoration: line-through;
+    color: gray;
 }
-
-/* Fade-in animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Close button */
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #555;
-    transition: color 0.3s;
-}
-
-.close-btn:hover {
-    color: #d9534f;
-}
-odal box */
 .form-container {
+    /* display: none; */
     background: white;
     padding: 20px;
     border-radius: 12px;

@@ -31,17 +31,13 @@ function search_task() {
 let add = document.getElementById("add");
 let formbox = document.getElementById("form-box");
 
-function toggle(tag, class1) {
-    tag.classList.toggle(class1);
-}
-
 add.addEventListener("click", () => {
-    formbox.style.display = "flex"; // Show form as a modal
+    formbox.style.display = "flex";
 });
 
 let close1 = document.getElementById("close");
 close1.addEventListener("click", () => {
-    formbox.style.display = "none"; // Hide form
+    formbox.style.display = "none";
 });
 
 let form = document.getElementById("form");
@@ -58,7 +54,7 @@ form.addEventListener("submit", (event) => {
         task: task,
         date: date,
         description: description,
-        completed: false, // Track completion
+        completed: false,
     };
 
     let List = localStorage.getItem("taskList");
@@ -66,7 +62,7 @@ form.addEventListener("submit", (event) => {
     taskList.push(dataObj);
 
     localStorage.setItem("taskList", JSON.stringify(taskList));
-    formbox.style.display = "none"; // Hide modal after submission
+    formbox.style.display = "none";
     displayList();
 });
 
@@ -75,25 +71,32 @@ sort.addEventListener("click", () => {
     let tasks = localStorage.getItem("taskList");
     let taskList = tasks ? JSON.parse(tasks) : [];
 
-    taskList.sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort by date
+    taskList.sort((a, b) => new Date(a.date) - new Date(b.date));
     localStorage.setItem("taskList", JSON.stringify(taskList));
     displayList();
 });
+
+// DRAG & DROP FUNCTIONALITY
+let draggedItem = null;
 
 function displayList(tasks = null) {
     let taskList = document.getElementById("list");
     taskList.innerHTML = "";
     let storedTasks = localStorage.getItem("taskList");
     let allTasks = storedTasks ? JSON.parse(storedTasks) : [];
-    
+
     let displayTasks = tasks || allTasks;
 
     displayTasks.forEach((task) => {
         let li = document.createElement("li");
         li.setAttribute("id", task.id);
+        li.setAttribute("draggable", "true"); 
+        li.addEventListener("dragstart", dragStart);
+        li.addEventListener("dragover", dragOver);
+        li.addEventListener("drop", drop);
 
         li.innerHTML = `
-            <input type="checkbox" class="checkbox" ${task.completed ? "checked" : ""} onclick="toggleStrike(${task.id})">
+            <input type="checkbox" class="checkbox" ${task.completed ? "checked" : ""} onclick="toggleStrike(this,${task.id})">
             <span class="${task.completed ? "strikethrough" : ""}">${task.task}</span>
             <span class="task-date">${task.date}</span>
             <button class='delete' onclick='removeTask(${task.id})'>&#128465;</button>
@@ -103,18 +106,44 @@ function displayList(tasks = null) {
     });
 }
 
-function toggleStrike(id) {
-    let storedTasks = localStorage.getItem("taskList");
-    let tasks = storedTasks ? JSON.parse(storedTasks) : [];
+function dragStart(event) {
+    draggedItem = event.target;
+    event.dataTransfer.setData("text/plain", draggedItem.id);
+}
 
-    tasks.forEach((task) => {
-        if (task.id === id) {
-            task.completed = !task.completed;
+function dragOver(event) {
+    event.preventDefault();
+}
+
+function drop(event) {
+    event.preventDefault();
+    let targetItem = event.target.closest("li");
+
+    if (targetItem && targetItem !== draggedItem) {
+        let list = document.getElementById("list");
+        let items = [...list.children];
+
+        let draggedIndex = items.indexOf(draggedItem);
+        let targetIndex = items.indexOf(targetItem);
+
+        if (draggedIndex > targetIndex) {
+            list.insertBefore(draggedItem, targetItem);
+        } else {
+            list.insertBefore(draggedItem, targetItem.nextSibling);
         }
+
+        updateLocalStorageOrder();
+    }
+}
+
+function updateLocalStorageOrder() {
+    let items = [...document.getElementById("list").children];
+    let updatedTasks = items.map((item) => {
+        let storedTasks = JSON.parse(localStorage.getItem("taskList")) || [];
+        return storedTasks.find((task) => task.id == item.id);
     });
 
-    localStorage.setItem("taskList", JSON.stringify(tasks));
-    displayList();
+    localStorage.setItem("taskList", JSON.stringify(updatedTasks));
 }
 
 function removeTask(id) {
@@ -125,3 +154,23 @@ function removeTask(id) {
     localStorage.setItem("taskList", JSON.stringify(tasks));
     displayList();
 }
+
+// DARK MODE FUNCTIONALITY
+let darkModeToggle = document.getElementById("darkModeToggle");
+
+if (localStorage.getItem("darkMode") === "enabled") {
+    document.body.classList.add("dark-mode");
+    darkModeToggle.textContent = "Light Mode";
+}
+
+darkModeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("darkMode", "enabled");
+        darkModeToggle.textContent = "Light Mode";
+    } else {
+        localStorage.setItem("darkMode", "disabled");
+        darkModeToggle.textContent = "Dark Mode";
+    }
+});

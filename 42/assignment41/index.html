@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <button id="darkModeToggle">Dark Mode</button>
+        <div id="todo-app">
+            <h1>To-Do List</h1>
+
+            <div class="search-container">
+                <input type="text" id="searchText" placeholder="Search Here">
+                <button id="find" class="search-btn">Find</button>
+                <button id="sort" class="sort-btn">Sort</button>
+                <button id="add" class="add-btn">Add</button>
+            </div>
+
+            <ul id="list"></ul>
+
+            <div id="form-box" class="modal">
+                <div class="form-container">
+                    <h2 id="form-title">Add New Task</h2>
+                    <form id="form">
+                        <input name="task" type="text" placeholder="Enter your Task" required>
+                        <input type="text" placeholder="Description" name="description" required>
+                        <input type="date" name="date" required>
+                        <button type="submit" class="submit-btn">Add Task</button>
+                    </form>
+                    <button id="close" class="close-btn">&times;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

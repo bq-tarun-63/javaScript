@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
@@ -6,16 +7,13 @@ body {
     padding: 0;
 }
 
-.header {
-    background-color: #eeeeee;
-    padding: 20px;
-}
-
+/* Header */
 h1 {
     margin: 0;
     font-weight: bold;
 }
 
+/* Search and Button Container */
 .search-container {
     display: flex;
     justify-content: center;
@@ -53,6 +51,7 @@ h1 {
     background-color: green;
 }
 
+/* Task List */
 ul {
     list-style: none;
     padding: 0;
@@ -69,8 +68,15 @@ li {
     justify-content: space-between;
     align-items: center;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: grab;
 }
 
+/* Dragging effect */
+li:active {
+    opacity: 0.6;
+}
+
+/* Modal for Adding Task */
 .modal {
     display: none;
     position: fixed;
@@ -108,7 +114,72 @@ li {
 .close-btn:hover {
     color: #d9534f;
 }
+
 .strikethrough {
     text-decoration: line-through;
     color: gray;
+}
+
+/* Center the To-Do List */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+/* Style the To-Do App */
+#todo-app {
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    height: 80%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 60%;
+}
+
+/* Dark Mode Toggle Button */
+#darkModeToggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #333;
+    color: white;
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode #todo-app {
+    background: #1e1e1e;
+}
+
+.dark-mode input,
+.dark-mode button {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+.dark-mode .task-date {
+    color: #bbb;
+}
+
+.dark-mode #list li {
+    color: black;
+}
+
+/* Drag & Drop Hover Effect */
+.dragging {
+    background-color: #ddd;
+    opacity: 0.6;
 }
