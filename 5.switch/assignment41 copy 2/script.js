@@ -1,18 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
     displayList();
 });
+//localStorage.clear();
 
-// Global Variables
 let editingTaskId = null;
 let find = document.getElementById("find");
 let formbox = document.getElementById("form-box");
 let form = document.getElementById("form");
-let formTitle = document.getElementById("formTitle"); // Ensure this exists in your HTML
+let formTitle = document.getElementById("formTitle");
 
-// 🔍 Search Task Function
-find.addEventListener("click", search_task);
 
-function search_task() {
+find.addEventListener("click", find1);
+
+function find1() {
     let search_btn_class = find.className;
     let searchText = document.getElementById("searchText").value.trim();
 
@@ -28,7 +28,7 @@ function search_task() {
         find.textContent = "Cancel";
         find.className = "cancel-btn";
     } else {
-        displayList(); // Reset list
+        displayList(); 
         find.textContent = "Find";
         find.className = "search-btn";
         document.getElementById("searchText").value = "";
@@ -38,9 +38,9 @@ function search_task() {
 
 document.getElementById("add").addEventListener("click", () => {
     formbox.style.display = "flex";
-    formTitle.textContent = "Add New Task"; // Reset form title
+    formTitle.textContent = "Add New Task"; 
     form.reset();
-    editingTaskId = null; // Reset editing mode
+    editingTaskId = null; 
 });
 
 
@@ -55,12 +55,12 @@ form.addEventListener("submit", (event) => {
     let task = form.task.value.trim();
     let date = form.date.value;
     let description = form.description.value.trim();
-    if (!task || !date || !description) return; // Prevent empty fields
-
+   // if (!task || !date || !description) return; 
+    console.log(task,date,description);
     let tasks = JSON.parse(localStorage.getItem("taskList") || "[]");
 
     if (editingTaskId) {
-        // Update existing task
+        
         tasks = tasks.map(t => t.id === editingTaskId ? { ...t, task, date, description } : t);
         editingTaskId = null;
     } else {
@@ -136,16 +136,19 @@ function displayList(tasks = null) {
         li.addEventListener("dragstart", dragStart);
         li.addEventListener("dragover", dragOver);
         li.addEventListener("drop", drop);
+        li.setAttribute("class","li-class");
+        console.log(li.attributes);
+        console.log("after");
 
         li.innerHTML = `
             <input type="checkbox" ${task.completed ? "checked" : ""} 
-                onclick="toggleStrike(this, ${task.id})">
+            onclick="toggleStrike(this, ${task.id})">
             <span class="task-text ${task.completed ? 'completed' : ''}">${task.task}</span>
             <span class="task-date">${task.date}</span>
             <button onclick="editTask(${task.id})">✏️</button>
             <button onclick="removeTask(${task.id})">🗑️</button>
         `;
-
+        
         taskList.appendChild(li);
     });
 }
@@ -172,7 +175,7 @@ function drop(event) {
         let draggedIndex = items.indexOf(draggedItem);
         let targetIndex = items.indexOf(targetItem);
 
-        if (draggedIndex > targetIndex) {
+        if (draggedIndex >targetIndex) {
             list.insertBefore(draggedItem, targetItem);
         } else {
             list.insertBefore(draggedItem, targetItem.nextSibling);
@@ -184,11 +187,15 @@ function drop(event) {
 
 function updateLocalStorageOrder() {
     let items = [...document.getElementById("list").children];
-    let updatedTasks = items.map(item => {
-        let storedTasks = JSON.parse(localStorage.getItem("taskList") || "[]");
-        return storedTasks.find(task => task.id == item.id);
-    });
 
+  
+    let storedTasks = JSON.parse(localStorage.getItem("taskList") || "[]");
+
+    console.log(storedTasks);
+    console.log(items);
+    let updatedTasks = items.map(item => storedTasks.find(task => task.id == item.id));
+
+    
     localStorage.setItem("taskList", JSON.stringify(updatedTasks));
 }
 
